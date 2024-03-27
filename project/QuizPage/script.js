@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchQuestions() {
-        fetch('https://opentdb.com/api.php?amount=25&type=multiple')
+        fetch('https://opentdb.com/api.php?amount=5&type=multiple')
             .then(response => response.json())
             .then(data => {
                 data.results.forEach(question => questions.push(question));
