@@ -15,3 +15,4 @@ User pages will log scores and when those are complete it will update to have th
 Also OpenTriviaDB API won't populate links and categories.  Had to use the developer links that doesn't diffrentiate categories.
 Will look into a different Trivia API if necessary.
 
+Got user icons from thenounproject.com. I just got a few to put in the user icon box.

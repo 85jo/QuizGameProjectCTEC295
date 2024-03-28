@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% username %} Page</title>
+    <title>user page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+    <div class="container-fluid h-100">
+        <div class="row">
+            <div class="col-md-2 user-section pe-3 pt-3 h-50">
+                <div class="user-icon-box mb-4">
+                    <img src="../icons/usericon.png" alt="User Icon" class="img-fluid rounded-circle">
+                </div>
+                <div class="navigation-box">
+                    <a href="#" class="d-block text-white mb-2">Profile</a>
+                    <a href="../QuizPage/Quiz_Page.html" class="d-block text-white mb-2">Take Quiz</a>
+                    <a href="#" class="d-block text-white">Settings</a>
+                </div>
+            </div>
+            <div class="col-md-8 offset-md-1 game-history ">
+                <h4 class="text-white mb-3">Game History</h4>
+                <div id="scoresList" class="text-white"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

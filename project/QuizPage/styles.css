@@ -67,3 +67,21 @@ body {
         max-width: 100%;
     }
 }
+
+.navigation a {
+    color: #dcd8f1;
+    transition: color 0.3s ease;
+}
+
+.navigation a:hover {
+    color: #a8cbff;
+}
+
+.user-navigation{
+    background-color: #243854;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 10px;
+}

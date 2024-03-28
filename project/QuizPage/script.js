@@ -71,8 +71,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 displayQuestion();
             } else {
                 scoreDisplay.textContent += ". Quiz complete!";
+                const scores = JSON.parse(localStorage.getItem('quizScores')) || [];
+                const quizdate = new Date().toLocaleString();
+
+                scores.push({
+                    score: score,
+                    date: quizdate
+                });
+                localStorage.setItem('quizScores', JSON.stringify(scores));
             }
-        }, 2000);
+        }, 1500);
     });
 
     fetchQuestions();
