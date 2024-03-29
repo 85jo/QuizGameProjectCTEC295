@@ -1,0 +1,26 @@
+<!--login.html-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Trivia Quiz</h1>
+    <div class="quiz-container">
+        {% for question in questions %}
+        <div class="question">
+            <p>{{ question[2] }}</p>
+            <form action="{{ url_for('submit_answer') }}" method="post">
+                <input type="hidden" name="question_id" value="{{ question[0] }}">
+                <input type="text" name="answer" placeholder="Your answer">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
