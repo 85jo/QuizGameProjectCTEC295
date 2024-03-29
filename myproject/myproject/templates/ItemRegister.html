@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+{% block content %}
+<div class="mb-3 container-sm" style="max-width: 40%;">
+    <form method="post">
+        {{form.hidden_tag()}}
+        {{form.Title.label (class="form-control-md")}}<br>
+        {{form.Title(class="form-control")}}<br>
+        {{form.description.label (class="form-control-md")}}<br>
+        {{form.description(class="form-control")}}<br>
+        {{form.Bid.label (class="form-control-md")}}<br>
+        {{form.Bid(class="form-control")}}<br>
+        {{form.endTime.label (class="form-control-md")}}<br>
+        {{form.endTime(class="form-control")}}<br>
+        {{form.submit(style="margin-top:1rem;",class="btn btn-dark")}}
+    </form>
+</div>
+{% endblock %}
