@@ -1,0 +1,33 @@
+{%extends "base.html"%}
+{% block content %}
+<table style="display: flexbox;">
+    <thead>
+    <tr>
+        <th>Title<p></p></th>
+        <th>Author<p></p></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>{%for book in books %}
+            <td>{{book.bookName}}<p></p></td>
+            <td>{{book.author}}<p></p></td>
+            <td><p></p></td>
+        </tr>{%endfor%}
+    </tbody>
+</table>
+<table style="display: flexbox;margin-left: 35rem;margin-top: -25rem;">
+    <thead>
+    <tr>
+        <th>Library Name<p></p></th>
+        <th>Address<p></p></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {%for library in libraries %}
+            <td>{{library.libName}}<p></p></td>
+            <td>{{library.address}}<p></p></td>
+        </tr>{%endfor%}
+    </tbody>
+</table>
+{% endblock %}

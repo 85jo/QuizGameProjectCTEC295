@@ -1,0 +1,48 @@
+{%extends "base.html"%}
+{% block content %}
+<h3 class="text-center" style="padding-top: 2rem; text-decoration: underline;">Current Items as Highest Bidder</h3>
+<table class="table table-striped" style="margin-top: 2rem;">
+    <thead>
+    <tr>
+        <th>Title<p></p></th>
+        <th>Description<p></p></th>
+        <th style="padding-left: .50rem;">Bid<p></p></th>
+        <th style="padding-left: .50rem;">End Time<p></p></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>{%for item in items %}
+            <td>{{item.Title}}</a><p></p></td>
+            <td>{{item.description}}<p></p></td>
+            <td>${{item.Bid}}<p></p></td>
+            <td>{{item.endTime}}<p></p></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+  </table>
+  {% if current_user.is_admin == True %}
+  <h3 class="text-center" style="padding-top: 2rem; text-decoration: underline;">Active bidder accounts</h3>
+  <table class="table table-striped" style="margin-top: 2rem;">
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>First Name</th>
+        <th >Last Name</th>
+        <th >Phone Number</th>
+        <th >Contact Info</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>{%for user in users %}
+            <td>{{user.email}}</td>
+            <td>{{user.firstname}}</td>
+            <td>{{user.lastname}}</td>
+            <td>{{user.phoneNum}}</td>
+            <td>{{user.contactInfo}}</td>
+            <td><a class="btn btn-warning" href="/PasswordReset/{{user.id}}" role="button">Password Reset</a></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+  </table>
+  {%endif%}
+{% endblock %}

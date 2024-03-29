@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+{% block content %}
+<h1>{{library.libName}}</h1>
+<h5>{{library.address}}</h5>
+<table style="display: flexbox;">
+    <thead>
+    <tr>
+        <th>Book Title<p></p></th>
+        <th>Author<p></p></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>{%for books in inBooks%}
+            <td>{{books.bookName}}<p></p></td>
+            <td>{{books.author}}<p></p></td>
+        </tr>{%endfor%}
+    </tbody>
+</table>
+{% endblock %}

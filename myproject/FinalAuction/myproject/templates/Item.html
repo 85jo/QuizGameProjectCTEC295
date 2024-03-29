@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+{% block content %}
+<div class="text-center">
+<h3>Title:{{items.Title}}</h3><br><br>
+<h3>Item Description:{{items.description}}</h3><br><br>
+<h3>Current Bid:${{items.Bid}}</h3><br><br>
+<h3>Highest Bidder:{{highbidder}}</h3><br><br>
+<h3>End Date:{{items.endTime}}</h3><br><br>
+</div>
+<div class="mb-3 container-sm" style="max-width: 25%;">
+    <form method="post">
+        {{form.hidden_tag()}}
+        {{form.Bid.label (class="form-control-md")}}<br>
+        {{form.Bid(class="form-control")}}<br>
+        {{form.submit(style="margin-top:1rem;",class="btn btn-dark")}}
+    </form>
+    <h5 style="color: red;">{{message}}</h5>
+</div>
+{% endblock %}
