@@ -19,4 +19,3 @@ document.addEventListener('DOMContentLoaded', function() {
 const savedScores = JSON.parse(localStorage.getItem('quizScores')) || [];
 savedScores.push(score);
 localStorage.setItem('quizScores', JSON.stringify(savedScores));
-1
