@@ -1,9 +1,9 @@
 body {
-    background-color: #475b76;
+    background-color: #023047;
 }
 
 .user-section {
-    background-color: #455f83;
+    background-color: #023047;
     color: #ffffff;
     padding: 20px;
     border-radius: 8px;
@@ -14,7 +14,7 @@ body {
 }
 
 .game-history {
-    background-color: #243854;
+    background-color: #023047;
     color: #ffffff;
     padding: 20px;
     border-radius: 8px;
@@ -54,7 +54,7 @@ body {
 }
 
 .user-icon-box, .navigation-box {
-    background-color: #2e3b4e;
+    background-color: #8ecae6;
     padding: 15px;
     border-radius: 8px;
     text-align: center; 
@@ -67,8 +67,8 @@ body {
 }
 
 .previous-scores:nth-child(even) {
-    background-color: #587d9e;
+    background-color: #8ecae6;
 }
 .previous-scores:nth-child(odd) {
-    background-color: #7fbef5;
+    background-color: #ffb703;
 }
