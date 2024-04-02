@@ -169,9 +169,16 @@ body {
 
 
 .container {
+    width 80%;
+    margin-top: 20%;
+    margin: auto;
     text-align: center;
-    padding: 25%;
-
+    max-width: 750px;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #023047;
+    box-shadow: 0 4px 6px #000000;
 }
 
 .navigation a {
@@ -179,7 +186,7 @@ body {
     padding: 20px 20px;
     margin: 20px;
     border-radius: 5px;
-    columns: #ffffff;
+    color: #ffffff;
     box-shadow: 0 2px 2px #000000;
 }
 

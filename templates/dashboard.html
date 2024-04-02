@@ -18,6 +18,8 @@
     <h2>User Score</h2>
     <p>Your score: {% if user_score %}{{ user_score[0] }}{% else %}N/A{% endif %}</p>
 
+    <a href="{{ url_for('display_quiz') }}">Start Quiz</a>
+    <a href="{{ url_for('display_leaderboard') }}">Leaderboard</a>
     <a href="{{ url_for('logout') }}">Logout</a>
 </body>
 </html>
