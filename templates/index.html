@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Trivia HomePage</title>
+</head>
+<body>
+    <div class="container">
+    <h1> Welcome to Fun Trivia!</h1>
+    <p> Test your knowledge on different categories and compare your scores with others.</p>
+    <div class="navigation">
+        <a href="{{ url_for('register') }}" class="btn btn-register">Register</a>
+            <a href="{{ url_for('login') }}" class="btn btn-login">Login</a>
+            <a href="{{ url_for('leaderboard') }}" class="btn btn-leaderboard">Leaderboard</a>
+    </div>
+</div>
+</body>
+</html>
