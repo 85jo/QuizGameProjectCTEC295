@@ -6,7 +6,7 @@ body {
     min-width: 500px;
     max-width: 80%;
     min-height: 400px;
-    background-color: #1a6e84;
+    background-color: #219ebc;
     color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -15,14 +15,14 @@ body {
     font-weight: bold;
     margin: 5px;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    background-color: #d4c090;
+    background-color: #f8c951;
     color: #ffffff;
     transition: transform 0.1s ease;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .answer-btn:hover, #submitBtn:hover {
     transform: translateY(-2px);
-    background-color: #efbb37;
+    background-color: #ffb703;
     color: #ffffff;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -30,13 +30,13 @@ body {
     background-color: #8ecae6;
 }
 #submitBtn {
-    background-color: #efbb37;
+    background-color: #ffb703;
     color: #ffffff;
     margin-top: 10px;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .submitBtn {
-    background-color: #efbb37;
+    background-color: #ffb703;
     color: #ffffff;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -164,7 +164,7 @@ body {
     background-color: #8ecae6;
 }
 .previous-scores:nth-child(odd) {
-    background-color: #d4c090;
+    background-color: #ffb703;
 }
 
 
@@ -191,11 +191,11 @@ body {
 }
 
 .btn-register {
-    background-color: #1a6e84;
+    background-color: #219ebc;
 }
 .btn-login {
-    background-color: #1a6e84;
+    background-color: #219ebc;
 }
 .btn-leaderboard {
-    background-color: #1a6e84;
+    background-color: #219ebc;
 }
