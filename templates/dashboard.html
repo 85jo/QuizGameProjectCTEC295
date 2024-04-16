@@ -15,9 +15,9 @@
             <div class="flex-grow-1" style="max-width: 25%;">
                 <img src="{{ url_for('static', filename='icons/usericon.png') }}" alt="User Icon" class="img-fluid rounded-circle mb-3" style="width: 80px;">
                 <nav class="nav flex-column">
-                    <a href="#" class="nav-link text-white">Profile</a>
+                    <a href="{{ url_for('index') }}"  class="nav-link text-white">Home</a>
                     <a href="{{ url_for('display_quiz') }}" class="nav-link text-white">Take Quiz</a>
-                    <a href="#" class="nav-link text-white">Settings</a>
+                    <a href="{{ url_for('display_leaderboard') }}"  class="nav-link text-white">Leaderboard</a>
                 </nav>
             </div>
             <!-- Most recent scores -->

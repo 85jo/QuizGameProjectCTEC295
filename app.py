@@ -82,6 +82,8 @@ def initialize_database():
 
                     score INTEGER,
 
+                    percent REAL,
+
                     FOREIGN KEY(user_id) REFERENCES users(id))''')
 
 
@@ -227,15 +229,11 @@ def display_quiz():
 def submit_answer():
 
     # Checking if user is logged in
-
     if 'username' not in session:
-
         return redirect(url_for('login'))
 
 
-
     # Retrieving submitted answer and question id
-
 
 
     user_answer = request.form['answer']
@@ -261,15 +259,16 @@ def submit_answer():
 
 
     # Comparing user answer with correct answer
+    if 'results' not in session:
+        session['results'] = {'score': 0, 'total': 0}
 
-
+    session['results']['total'] += 1
 
     if user_answer.lower() == correct_answer.lower():
-
+        session['results']['score'] += 5
         flash('Correct!', 'success')
 
     else:
-
         flash('Incorrect!', 'danger')
 
 
@@ -290,37 +289,23 @@ def submit_answer():
 
 def display_leaderboard():
 
-
-
     # Checking  if user is logged in
-
-
 
     if 'username' not in session:
 
         return redirect(url_for('login'))
 
-
-
     # Fetching  leaderboard data from the database
-
-
-
     conn = sqlite3.connect('trivia.db')
-
     c = conn.cursor()
-
-
-
-    c.execute("SELECT username, score FROM users JOIN scores ON users.id = scores.user_id ORDER BY score DESC")
-
+    c.execute("""SELECT username, SUM(score) as total_score, AVG(percent) as avg_percent
+               FROM users 
+               JOIN scores ON users.id = scores.user_id 
+               GROUP BY users.id
+               ORDER BY total_score DESC, avg_percent DESC""")
+    
     leaderboard = c.fetchall()
-
-
-
     conn.close()
-
-
 
     return render_template('leaderboard.html', leaderboard=leaderboard)
 
@@ -488,7 +473,7 @@ def logout():
 
     flash('You have been logged out successfully!', 'success')
 
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 
 
@@ -534,17 +519,9 @@ def display_categories():
 
 def submit_quiz():
 
-
-
     # Checking  if user is logged in
-
-
-
     if 'username' not in session:
-
         return redirect(url_for('login'))
-
-
 
     if request.method == 'POST':
 
@@ -565,6 +542,43 @@ def submit_quiz():
     return render_template('submit.html')
 
  
+@app.route ('/finished_quiz')
+def finished_quiz():
+    score = session.get('results', {}).get('score', 0)
+    total_questions = 5
+    percent = round((score / (total_questions * 5)) * 100, 2)
+
+    user_id = session.get('user_id')
+    if user_id:
+        conn = sqlite3.connect('trivia.db')
+        c = conn.cursor()
+        c.execute("INSERT INTO scores (user_id, score, percent) VALUES (?, ?, ?)", (user_id, score, percent))
+        conn.commit()
+        conn.close()
+    
+    session.pop('results', None)
+    return render_template('quiz_complete.html', score=score, percent=percent)
+
+@app.route('/submit_results', methods=['POST'])
+def submit_results():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    score = request.form.get('score', type=int)
+    total_questions = request.form.get('total_questions', type=int)
+    percentage = (score / (total_questions * 5)) * 100
+
+    conn = sqlite3.connect('trivia.db')
+    c = conn.cursor()
+    c.execute("SELECT id FROM users WHERE username=?", (session['username'],))
+    user_id = c.fetchone()[0]
+
+
+    if user_id:
+        c.execute("INSERT INTO scores (user_id, score, percent) VALUES (?, ?, ?)", (user_id, score, percentage))
+        conn.commit()
+    conn.close()
+    return redirect(url_for('leaderboard'))
 
 # Run Flask app
 

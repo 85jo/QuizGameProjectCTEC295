@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100" style="background-color: #023047;">
-    <div class="card quiz-card text-center">
-        <div class="card-body">
+    <div class="container">
             <h1>Leaderboard</h1>
+            {% if leaderboard %}
             <ol class="list-group list-group-numbered my-3">
                 {% for user, score in leaderboard %}
                     <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -22,8 +22,11 @@
                     </li>
                 {% endfor %}
             </ol>
+            {% else %}
+            <h3> No Scores Available.</h3>
+            {% endif %}
+
             <a href="{{ url_for('dashboard') }}" class="btn btn-primary mt-3">Dashboard</a>
         </div>
-    </div>
 </body>
 </html>

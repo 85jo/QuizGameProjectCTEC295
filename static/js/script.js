@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let questions = [];
     let currentQuestions = 0;
     let score = 0;
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return txt.value;
     }
 
+
     function fetchQuestions() {
         fetch('https://opentdb.com/api.php?amount=5&type=multiple')
             .then(response => response.json())
@@ -21,6 +22,24 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error grabbing questions:', error));
     }
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array [j]] = [array[j], array[i]];
+        }
+    }
+
+    function quizEndOptions() {
+        const endOptions = document.createElement('div');
+        endOptions.innerHTML = `<button onclick="window.location.href='/dashboard'" class="btn-primary btn">Profile</button>
+        <button onclick="location.reload()" class="btn-primary btn">Take Quiz Again</button>
+        <button onclick="window.location.href='/leaderboard'" class="btn-primary btn">Leaderboard</button>
+        <button onclick="window.location.href='/logout'" class="btn-primary btn">Logout</button>`;
+        document.getElementById('result').appendChild(endOptions);
+
+    }
+
 
     function displayQuestion() {
         if (currentQuestions >= questions.length) {
@@ -37,11 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const answers = [question.correct_answer, ...question.incorrect_answers];
 
+        shuffle(answers);
+
+        
         answers.forEach(answer => {
             let button = document.createElement('button');
             button.className = 'btn btn-secondary answer-btn';
             button.textContent = decodeHtml(answer);
-            button.onclick = function() {
+            button.onclick = function () {
                 document.querySelectorAll('.answer-btn').forEach(btn => btn.classList.remove('selected'));
                 button.classList.add('selected');
                 selectedAnswer = answer;
@@ -53,9 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonWidth();
     }
 
-    submitBtn.addEventListener('click', function() {
+    submitBtn.addEventListener('click', function () {
         const correctAnswer = questions[currentQuestions].correct_answer;
-        if(selectedAnswer === decodeHtml(correctAnswer)) {
+        if (selectedAnswer === decodeHtml(correctAnswer)) {
             score += 5;
             document.getElementById('result').textContent = 'You got it!';
         } else {
@@ -79,6 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     date: quizdate
                 });
                 localStorage.setItem('quizScores', JSON.stringify(scores));
+                submitBtn.style.display = 'none';
+                quizEndOptions();
             }
         }, 1500);
     });
@@ -100,7 +124,7 @@ function buttonWidth() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const scoresList = document.getElementById('scoresList');
 
     function loadScores() {
@@ -121,3 +145,4 @@ document.addEventListener('DOMContentLoaded', function() {
 const savedScores = JSON.parse(localStorage.getItem('quizScores')) || [];
 savedScores.push(score);
 localStorage.setItem('quizScores', JSON.stringify(savedScores));
+
