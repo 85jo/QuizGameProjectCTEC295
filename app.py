@@ -2,6 +2,8 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
+from dotenv import load_dotenv
+load_dotenv()
 import sqlite3
 
 import requests
@@ -18,7 +20,7 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 
-app.secret_key = os.urandom(24)
+app.secret_key = os.getenv('SECRET_KEY')
 
 bcrypt = Bcrypt(app)
 
@@ -307,6 +309,9 @@ def display_leaderboard():
     leaderboard = c.fetchall()
     conn.close()
 
+    if not leaderboard:
+        flash("no scores available")
+
     return render_template('leaderboard.html', leaderboard=leaderboard)
 
 
@@ -333,7 +338,7 @@ def login():
 
 
 
-        c.execute("SELECT * FROM users WHERE username=?", (username,))
+        c.execute("SELECT id, password FROM users WHERE username=?", (username,))
 
         user = c.fetchone()
 
@@ -346,6 +351,8 @@ def login():
         if user and bcrypt.check_password_hash(user[2], password):  # Verify hashed password
 
             session['username'] = username
+
+            session['user_id'] = user[0]
 
             flash('You have been logged in successfully!', 'success')
 
@@ -555,6 +562,8 @@ def finished_quiz():
         c.execute("INSERT INTO scores (user_id, score, percent) VALUES (?, ?, ?)", (user_id, score, percent))
         conn.commit()
         conn.close()
+    else:
+        flash("user id not found,score not saved")
     
     session.pop('results', None)
     return render_template('quiz_complete.html', score=score, percent=percent)

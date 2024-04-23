@@ -13,11 +13,11 @@
             <h1>Leaderboard</h1>
             {% if leaderboard %}
             <ol class="list-group list-group-numbered my-3">
-                {% for user, score in leaderboard %}
+                {% for user, score, percent in leaderboard %}
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">{{ user }}</div>
-                            Score: {{ score }}
+                            Score: {{ score }} : AVG Percent: {{ percent }}%
                         </div>
                     </li>
                 {% endfor %}
