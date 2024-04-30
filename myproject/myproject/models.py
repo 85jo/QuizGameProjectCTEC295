@@ -20,8 +20,9 @@ class User(db.Model,UserMixin):
     contactInfo = db.Column(db.String(128))
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean)
+    score = db.Column(db.Integer)
 
-    def __init__(self,email,firstname,lastname,phoneNum,contactInfo,password,is_admin):
+    def __init__(self,email,firstname,lastname,phoneNum,contactInfo,password,is_admin,score):
         self.email = email
         self.firstname = firstname
         self.lastname = lastname
@@ -29,6 +30,7 @@ class User(db.Model,UserMixin):
         self.contactInfo = contactInfo
         self.password_hash = generate_password_hash(password)
         self.is_admin = is_admin
+        self.score = score
 
     def check_password(self, password):
         return check_password_hash(self.password_hash,password)
@@ -52,12 +54,3 @@ class Item(db.Model):
         self.description = description
         self.Bid = Bid
         self.endTime = endTime
-
-class Questions(db.Model):
-
-    __bind_key__ = 'questionDB'
-    __tablename__    = 'questions'
-    id = db.Column(db.Integer, primary_key=True)
-    catagory_id = db.Column(db.Integer)
-    question = db.Column(db.String(64))
-    answer = db.Column(db.String(64))

@@ -4,6 +4,7 @@ from flask_login import login_user,login_required,logout_user
 from myproject.models import User, Item
 import requests
 import pprint
+from sqlalchemy import desc
 
 from myproject.forms import LoginForm,RegistrationForm,ItemForm,BidForm
 import datetime 
@@ -30,13 +31,39 @@ def home():
 
 ##Profile Route gives you all your items you bid on and all Users if your an admin.
 ##Admin check is done in the Profile.html file
+@app.route('/Leaderboard')
+@login_required
+def Leaderboard():
+    users = User.query.order_by(desc(User.score)).all()
+    return render_template('Leaderboard.html',users=users)
+
 @app.route('/Profile')
 @login_required
 def Profile():
-    item = Item.query.filter_by(highestBidder = session['id'])
+    users = User.query.order_by(desc(User.score)).all()
+    return render_template('Profile.html',users=users)
+
+@app.route('/Quiz')
+@login_required
+def Quiz():
     users = User.query.all()
-    ##questions = Questions.query.all()
-    return render_template('Profile.html',items=item,users=users)
+    return render_template('QuizPage.html',users=users)
+
+@app.route('/Admin')
+@login_required
+def Admin():
+    users = User.query.all()
+    return render_template('Admin.html',users=users)
+
+@app.route('/updateScore', methods=['POST'])
+@login_required
+def updateScore():
+    data = request.get_json()
+    newScore = data['score']
+    user = User.query.filter_by(id = session['id']).first()
+    user.score += int(newScore)
+    db.session.commit()
+    return render_template('Profile.html', user=user)
 
 ##Logout Route,logs user out and redirects them to home.html
 @app.route('/logout')
@@ -84,7 +111,8 @@ def register():
                     lastname=form.lastname.data,
                     phoneNum=form.phoneNum.data,
                     contactInfo=form.contactInfo.data,
-                    is_admin= form.is_admin.data)
+                    is_admin= form.is_admin.data,
+                    score=0)
         
         db.session.add(user)
         db.session.commit()
@@ -125,67 +153,6 @@ def PasswordReset(userId):
     
     return render_template('PasswordReset.html', form=form, user=user)
 
-## Gives ability to register new Item to the database. Also like link is only available if your 
-## an Admin, through the navbar in base.html. then redirects to ItemListing
-@app.route('/ItemRegister', methods=['GET','POST'])
-@login_required
-def ItemRegister():
-    form = ItemForm()
-
-    if form.validate_on_submit():
-        item = Item(Title=form.Title.data,
-                    description=form.description.data,
-                    Bid=form.Bid.data,
-                    endTime=form.endTime.data)
-        
-        db.session.add(item)
-        db.session.commit()
-        flash("Item Added Successfully!")
-        return redirect(url_for('ItemListing'))
-    return render_template('ItemRegister.html', form=form)
-
-
-## Item Listing page avaliable to only bidders and admins queries all items current and past auctions.
-## Does a date check to see if the auction is past or is still current
-@app.route('/ItemListing')
-@login_required
-def ItemListing():
-    item = Item.query.all()
-    highbidder = User.query.all()
-    dateNow = datetime.datetime.now()
-    
-    return render_template('ItemListing.html',items=item,highbidder=highbidder,dateNow=dateNow)
-
-## Item Page takes an Item id from the Item Database from the ItemListing.html page
-## that user clicks on to bid on. Gives all the item details and current bid,highest bidder and ability
-## to bid on the item. Also will show a message if the bid is not over current bid.
-@app.route('/ItemID/<int:itemId>', methods=['GET','POST'])
-@login_required
-def ItemID(itemId):
-    form = BidForm()
-    item = Item.query.filter_by(id=itemId).first()
-    highbidder = User.query.filter_by(id=item.highestBidder).first()
-    message = ""
-    
-    if highbidder != None:
-        highbidderFN = highbidder.firstname
-    else:
-        highbidderFN = "None"
-    currentUser = session['id']
-
-    if form.validate_on_submit():
-        if (form.Bid.data) > item.Bid:
-            item.highestBidder = session['id']
-            item.Bid = form.Bid.data
-            db.session.commit()
-            highbidder = User.query.filter_by(id=item.highestBidder).first()
-            highbidderFN = highbidder.firstname
-
-        else:
-            message = "Bid is not more than current bid!"
-
-        return render_template('Item.html',items=item,currentUser=currentUser,form=form,highbidder=highbidderFN,message=message)
-    return render_template('Item.html',items=item,currentUser=currentUser,form=form,highbidder=highbidderFN)
 
 if __name__== '__main__':
     app.run(debug=True)

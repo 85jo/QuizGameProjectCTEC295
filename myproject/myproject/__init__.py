@@ -11,13 +11,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'MysecretKey'
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.path.join(basedir, 'data.sqlite')
-app.config['SQLALCHEMY_BINDS'] = {'questionDB' : 'sqlite:////'+os.path.join(basedir, 'trivia.db')}
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-##questions = db.Table('questions', db.metadata, autoload=True, autoload_with=db.engine)
 
 Migrate(app,db)
 

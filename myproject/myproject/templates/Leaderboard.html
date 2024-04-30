@@ -1,30 +1,29 @@
 {%extends "base.html"%}
 {% block content %}
   {% if current_user.is_admin == True %}
-  <h3 class="text-center text-white" style="padding-top: 2rem; font-family: Zubilo Black W01 Regular">Admin Panel</h3>
+  <h3 class="text-center text-white" style="padding-top: 2rem; font-family: Zubilo Black W01 Regular">Leader Board</h3>
   <table class="table table-striped" style="margin-top: 2rem;">
     <thead>
     <tr>
         <th>Rank</th>
-        <th>Email</th>
+        <!--<th>Email</th>-->
         <th>First Name</th>
         <th >Last Name</th>
-        <th >Phone Number</th>
-        <th >Contact Info</th>
+        <!--<th >Phone Number</th>
+        <th >Contact Info</th>-->
         <th >Score</th>
-        <th >Password Reset</th>
     </tr>
     </thead>
     <tbody>
         <tr>{%for user in users %}
             <td>{{loop.index}}</td>
-            <td>{{user.email}}</td>
+            <!--<td>{{user.email}}</td>-->
             <td>{{user.firstname}}</td>
             <td>{{user.lastname}}</td>
-            <td>{{user.phoneNum}}</td>
-            <td>{{user.contactInfo}}</td>
+            <!--<td>{{user.phoneNum}}</td>
+            <td>{{user.contactInfo}}</td>-->
             <td>{{user.score}}</td>
-            <td><a class="btn btn-warning" href="/PasswordReset/{{user.id}}" role="button">Password Reset</a></td>
+            <!--<td><a class="btn btn-warning" href="/PasswordReset/{{user.id}}" role="button">Password Reset</a></td>-->
         </tr>
         {%endfor%}
     </tbody>
